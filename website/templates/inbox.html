@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{%extends "base.html"%}
+{% block title %}login{% endblock %}
+{%block content %}
+<style>
+    table, th, td {
+      border: 1px solid black;
+    }
+    </style>   
+    
+<body>
+    <table>
+      <thead>
+        <tr>
+          <th>Your Inbox</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in inbox %}
+          <tr>
+            <td>{{ row[0] }}</td>
+            <td>{{ row[1] }}</td>
+            <td>{{ row[2] }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <form action="/inbox?id=next" method="POST">
+      <input type="hidden" name="data" value="my data">
+      <button type="submit"  data-inline="true" class="btn btn-primary">Next Page</button>
+    </form>
+    <form action="/inbox?id=previous" method="POST">
+      <input type="hidden" name="data" value="my data">
+      <button type="submit"  data-inline="true" class="btn btn-primary">Previous Page</button>
+    </form>
+    <form action="/inbox?id=listen" method="POST">
+      <input type="hidden" name="data" value="my data">
+      <button type="submit"  data-inline="true" class="btn btn-primary">Listen</button>
+    </form>
+  </body>
+{% endblock %}
