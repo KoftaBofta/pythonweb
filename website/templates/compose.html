@@ -5,15 +5,15 @@
     <h3 align="center">Create Mail</h3>
     <div class="form-group">
         <label for="recepient">Recepient</label>
-        <input type="recepient" class="form-control" id="recepient" name="recepient" value="{{ reciever }}"/>
+        <input type="text" class="form-control" id="recepient" name="recepient" value="{{ reciever }}"/>
     </div>
     <div class="form-group">
         <label for="subject">Subject</label>
-        <input type="subject" class="form-control" id="subject" name="subject" value="{{ subj }}"/>
+        <input type="text" class="form-control" id="subject" name="subject" value="{{ subj }}"/>
     </div>
     <div class="form-group">
         <label for="body">Body</label>
-        <input type="body" class="form-control" id="body"  style="height: 100px;" name="body" value="{{ body }}" />
+        <input type="text" class="form-control" id="body"  style="height: 100px;" name="body" value="{{ body }}" />
     </div>
     <br />
     <button type="submit" class="btn btn-primary">Send Email</button>
@@ -24,4 +24,36 @@
     <input type="hidden" name="data" value="my data">
     <button type="submit" class="btn btn-primary">Listen</button>
   </form>
+
+  <script>
+    
+    document.addEventListener('keydown', function(event) {
+      if (event.keyCode === 32) { 
+        event.preventDefault();
+        console.log("Hello")
+        var url = '/compose?id=listen&id2=shortcut';
+        var data = { key1: 'value1', key2: 'value2' };
+        fetch(url, {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        .then(response => response.json())
+          .then(data => {
+            console.log(data);
+            var bodyInput = document.getElementById('body');
+            var subjectInput = document.getElementById('subject');
+            var recepientInput = document.getElementById('recepient');
+            subjectInput.value = data.subj;
+            bodyInput.value = data.body;
+            recepientInput.value = data.reciever
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      }
+    });
+  </script>
 {% endblock %}

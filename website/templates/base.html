@@ -32,7 +32,7 @@
           <a class="nav-item nav-link" id="home" href="/">Home</a>
           <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
           <a class="nav-item nav-link" id="login" href="/login">Login</a>
-          <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
+          <a class="nav-item nav-link" id="signUp" href="/sign_up">Sign Up</a>
           <a class="nav-item nav-link" id="signUp" href="/inbox">Inbox</a>
         </div>
       </div>
@@ -84,6 +84,37 @@
   });
   }
 </script>
+
+<form action="/navigate" method="POST">
+  <input type="hidden" name="data" value="my data">
+  <button type="submit" class="btn btn-primary">navigate</button>
+</form>
+
+  <script>
+    document.addEventListener('keydown', function(event) {
+      if (event.keyCode === 38) {
+        var url = '/navigate';
+        var data = { key1: 'value1', key2: 'value2' };
+        fetch(url, {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        .then(response => {
+          if (response.url) {
+            console.log("Response detected")
+            const redirectedUrl = response.url;
+            console.log(response.url)
+            window.location.href = redirectedUrl;
+          }
+        })
+      }
+      }
+    );
+  </script>
+
 {% endblock %}
   </body>
 </html>

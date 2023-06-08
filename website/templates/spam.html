@@ -47,7 +47,7 @@ table.boostrap4 td {
     </style>   
     
 <body>
-  <h3 align="center">Inbox</h3>
+  <h3 align="center">Spam</h3>
     <table class="boostrap4">
       <thead>
         <tr>
@@ -57,7 +57,7 @@ table.boostrap4 td {
         </tr>
       </thead>
       <tbody>
-        {% for row in inbox %}
+        {% for row in spam %}
           <tr>
             <td>{{ row[0] }}</td>
             <td>{{ row[1] }}</td>
@@ -66,27 +66,28 @@ table.boostrap4 td {
         {% endfor %}
       </tbody>
     </table>
-    <form action="/inbox?id=next" method="POST">
+    <form action="/spam?id=next" method="POST">
       <input type="hidden" name="data" value="my data">
       <button type="submit"  data-inline="true" class="btn btn-primary">Next Page</button>
     </form>
     <br />
-    <form action="/inbox?id=previous" method="POST">
+    <form action="/spam?id=previous" method="POST">
       <input type="hidden" name="data" value="my data">
       <button type="submit"  data-inline="true" class="btn btn-primary">Previous Page</button>
     </form>
   <br />
   <br />
-    <form action="/inbox?id=listen" method="POST">
+    <form action="/spam?id=listen" method="POST">
       <input type="hidden" name="data" value="my data">
       <button type="submit"  data-inline="true" class="btn btn-primary">Listen</button>
     </form>
+  
     <script>
       document.addEventListener('keydown', function(event) {
         if (event.keyCode === 32) { 
           event.preventDefault();
           console.log("Hello")
-          var url = '/inbox?id=listen';
+          var url = '/spam?id=listen';
           var data = { key1: 'value1', key2: 'value2' };
           fetch(url, {
             method: 'POST',
@@ -115,5 +116,4 @@ table.boostrap4 td {
       });
     </script>
   </body>
-
 {% endblock %}
